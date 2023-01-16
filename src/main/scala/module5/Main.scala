@@ -13,13 +13,13 @@ object Main {
       .appName("SparkByExample")
       .getOrCreate();
 
-    //    module1(spark);
-    //    module2(spark);
-    //    module3(spark);
-    module4(spark);
+    //    module51(spark);
+    //    module52(spark);
+    //    module53(spark);
+    module54(spark);
   }
 
-  def module1(spark: SparkSession) {
+  def module51(spark: SparkSession) {
     val zips = spark.read.json("src/main/resources/zips.json");
     zips.show();
     zips.filter("pop > 10000").show();
@@ -30,15 +30,11 @@ object Main {
     spark.sql("SELECT state, sum(pop) as statePop FROM zips GROUP BY state ORDER BY statePop DESC LIMIT 5").show();
   }
 
-  def createZipsView() {
+  def module52(spark: SparkSession) {
 
   }
 
-  def module2(spark: SparkSession) {
-
-  }
-
-  def module3(spark: SparkSession) {
+  def module53(spark: SparkSession) {
     val partidosRDD = spark.sparkContext.textFile("src/main/resources/DataSetPartidos.txt");
     val rowRDD = partidosRDD.map(row => row.split("::")).map(fields => Row(fields(0), fields(1), fields(2), fields(3), fields(4), fields(5), fields(6), fields(7), fields(8)))
 
@@ -55,7 +51,7 @@ object Main {
     spark.sql("SELECT count(distinct temporada) as temporadas FROM partidos WHERE EquipoLocal LIKE 'Real Oviedo'").show()
   }
 
-  def module4(spark: SparkSession) {
+  def module54(spark: SparkSession) {
     val simpsonsDF = spark.read.options(Map("inferSchema" -> "true", "header" -> "true")).csv("src/main/resources/simpsons.csv")
     simpsonsDF.createOrReplaceTempView("simpsons")
 
